@@ -21,4 +21,12 @@ export class UserService {
     return userDetails;
     }
 
+    // Get User By Id
+    async getUserById(id: string) {      
+       
+        const user=await this.userModel.findById(id);   
+        console.log(user);
+        return user
+    }
+
 }

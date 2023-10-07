@@ -1,5 +1,5 @@
 import { Prop, Schema,SchemaFactory } from "@nestjs/mongoose";
-import { type } from "os";
+
 
 
 @Schema({
@@ -22,6 +22,10 @@ export class User {
 
     @Prop({default:'user'})
     role:string;
+
+    @Prop({default:true})
+    isActive:Boolean
+    
 }
 
 export const UserSchema= SchemaFactory.createForClass(User)

@@ -1,35 +1,34 @@
 
 import { IsNotEmpty,IsString, IsNumber, Validator, IsOptional, IsPositive, Validate } from "class-validator";
-import { Transform } from 'class-transformer';
-import { PartialType } from "@nestjs/mapped-types";
 import { IsPriceValidConstraint } from "./price.validate.dto";
 import { IsImageFileConstraint } from "./image.validate.dto";
 
+export class UpdateProductDto{
 
-export class ProductDto{
+    @IsOptional()
+    @IsString()
+    productName?:string
+
+    @IsOptional()
+    @IsString()
+     modelName?:string
+
+    @IsOptional()
+    @IsString()
+    specification?:string
+
+    @IsOptional()
+    @IsString()
+    color?:string
  
-    @IsNotEmpty()
-    @IsString()
-    productName:string
-
-    @IsNotEmpty()
-    @IsString()
-     modelName:string
-
-    @IsNotEmpty()
-    @IsString()
-    specification:string
-
-    @IsNotEmpty()
-    @IsString()
-     color:string
- 
-    @IsNotEmpty()
+    @IsOptional()
     @Validate(IsPriceValidConstraint)
-    price:number
+    price?:number
 
     @IsOptional()
     @Validate(IsImageFileConstraint)
     @IsNotEmpty()
     image:Express.Multer.File
+
+    
 }

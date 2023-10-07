@@ -16,25 +16,34 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { PaymentModule } from './payment/payment.module';
 import { StripeService } from './stripe/stripe.service';
-
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guard/jwt.guard';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:'.env',
-      isGlobal:true,
+      envFilePath: '.env',
+      isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
     AuthModule,
     PassportModule,
-    JwtModule.register({secret:process.env.JWT_SECRET}),
+    JwtModule.register({ secret: process.env.JWT_SECRET }),
     UserModule,
     ProductModule,
     CartModule,
     PaymentModule,
-  ], 
+  ],
   controllers: [AppController],
-  providers: [AppService,JwtStrategy, StripeService],
+  providers: [
+    AppService,
+    JwtStrategy,
+    StripeService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    },
+  ],
 })
 export class AppModule {}

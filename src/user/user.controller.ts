@@ -2,7 +2,7 @@ import { Controller, Get,Param, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 import { Role } from 'src/auth/interface/user.interface';
-import { Roles } from 'src/auth/roles/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 import { RoleGuard } from 'src/auth/role/role.guard';
 
 @Controller('user')

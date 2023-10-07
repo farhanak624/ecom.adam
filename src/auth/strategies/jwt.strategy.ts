@@ -2,11 +2,15 @@ import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import {Injectable} from '@nestjs/common'
 import { Role } from "../interface/user.interface";
+import { ConfigService } from "@nestjs/config";
 
+export type JwtPayload={
+    sub:string
+}
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy){
-    constructor(){
+    constructor( private configService:ConfigService){
         super({
             jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
             Expiration:process.env.JWT_EXPIRES,
@@ -14,13 +18,15 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         })
     }
     
-    async validate(payload){
-        console.log("payload is",payload);
-    return{
-        userId:payload.id,
-        // userName:payload.username,
-        role:payload.role,
-    }
+    validate(payload:JwtPayload){
+     
+     
+        return payload
+    // {
+    //     userId:payload.id,
+    //     // userName:payload.username,
+    //     role:payload.role,
+    // }
     
     }
 }
